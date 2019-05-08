@@ -5,6 +5,7 @@ export default (({ username, message }) => {
         <div>
             <span className="badge badge-secondary">{ username }</span>
             <span> { message } </span>
+            <hr />
         </div>
     );
 })
