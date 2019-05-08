@@ -2,20 +2,19 @@ import React from 'react';
 import Snippet from './Snippet';
 
 export default (({ chat }) => {
-
     return (
         <>
             <div className="card">
-                <div className="card-body">
+                <div className="card-body" style={{ height: `calc(${window.innerHeight}px - 300px)`, overflowY: 'scroll' }}>
                     {
                         (!chat) ? <></>
                             :
-                            chat.map( (e, i ) => {
-                                return <Snippet {...e} />
+                            chat.map((e, i) => {
+                                return <Snippet {...e} key={i} />
                             })
                     }
                 </div>
             </div>
         </>
     );
-})
+});
