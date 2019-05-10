@@ -8,6 +8,7 @@ function App() {
   const [username, setUsername] = useState(null);
   const [authStatus, setAuthStatus] = useState(null);
   const [chat, setChat] = useState([]);
+  const checkChat = ((chat)? chat.length:null);
 
 
   useEffect(() => {
@@ -41,7 +42,7 @@ function App() {
     const objDiv = document.getElementById("chat_window");
     if (!objDiv) return;
     objDiv.scrollTop = objDiv.scrollHeight;
-  }, [chat.length, username])
+  }, [checkChat, username])
 
   const updateChat = (message) => {
     // this should work fine, but problems may occur once many messages are sent
