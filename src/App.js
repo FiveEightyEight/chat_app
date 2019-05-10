@@ -41,6 +41,14 @@ function App() {
     }, 1500);
   }, []);
 
+  useEffect(() => {
+    // Scrolls to the bottom of the chat window
+    // Runs only when the chat array grows or when the user first enters their username
+    const objDiv = document.getElementById("chat_window");
+    if (!objDiv) return;
+    objDiv.scrollTop = objDiv.scrollHeight;
+  }, [chat.length, username])
+
   const updateChat = (message) => {
     // this should work fine, but problems may occur once many messages are sent
     if (chat) {
@@ -52,7 +60,7 @@ function App() {
       );
       firebase.database().ref('/chat').child('main').set({ chat });
     } else {
-      const temp = [{username, message: message.trim()}];
+      const temp = [{ username, message: message.trim() }];
       firebase.database().ref('/chat').child('main').set({ chat: temp });
     }
   }
