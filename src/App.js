@@ -8,6 +8,7 @@ function App() {
   const [username, setUsername] = useState(null);
   const [authStatus, setAuthStatus] = useState(null);
   const [chat, setChat] = useState([]);
+  const checkChat = ((chat)? chat.length:null);
 
 
   useEffect(() => {
@@ -26,20 +27,22 @@ function App() {
             setChat(data.chat);
           }
         })
-    }, 1000);
-  }, [])
-
-  useEffect(() => {
-    // This is the listener
-    // it will update the local chat when firebase receives an updates
-    setTimeout(() => {
+      // This is the listener
+      // it will update the local chat when firebase receives an updates
       const firebaseListener = firebase.database().ref('/chat/main/chat');
       firebaseListener.on('value', (snapshot) => {
         setChat(snapshot.val());
       })
-      // return firebaseListener.off();
-    }, 1500);
-  }, []);
+    }, 1000);
+  }, [])
+
+  useEffect(() => {
+    // Scrolls to the bottom of the chat window
+    // Runs only when the chat array grows or when the user first enters their username
+    const objDiv = document.getElementById("chat_window");
+    if (!objDiv) return;
+    objDiv.scrollTop = objDiv.scrollHeight;
+  }, [checkChat, username])
 
   const updateChat = (message) => {
     // this should work fine, but problems may occur once many messages are sent
@@ -52,7 +55,7 @@ function App() {
       );
       firebase.database().ref('/chat').child('main').set({ chat });
     } else {
-      const temp = [{username, message: message.trim()}];
+      const temp = [{ username, message: message.trim() }];
       firebase.database().ref('/chat').child('main').set({ chat: temp });
     }
   }

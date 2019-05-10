@@ -5,7 +5,7 @@ export default (({ chat }) => {
     return (
         <>
             <div className="card">
-                <div className="card-body" style={{ height: `calc(${window.innerHeight}px - 300px)`, overflowY: 'scroll' }}>
+                <div id='chat_window' className="card-body" style={{ height: `calc(${window.innerHeight}px - 300px)`, overflowY: 'scroll' }}>
                     {
                         (!chat) ? <></>
                             :
