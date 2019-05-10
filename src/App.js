@@ -26,20 +26,14 @@ function App() {
             setChat(data.chat);
           }
         })
-    }, 1000);
-  }, [])
-
-  useEffect(() => {
-    // This is the listener
-    // it will update the local chat when firebase receives an updates
-    setTimeout(() => {
+      // This is the listener
+      // it will update the local chat when firebase receives an updates
       const firebaseListener = firebase.database().ref('/chat/main/chat');
       firebaseListener.on('value', (snapshot) => {
         setChat(snapshot.val());
       })
-      // return firebaseListener.off();
-    }, 1500);
-  }, []);
+    }, 1000);
+  }, [])
 
   useEffect(() => {
     // Scrolls to the bottom of the chat window
